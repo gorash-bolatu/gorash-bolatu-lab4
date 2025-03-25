@@ -22,7 +22,8 @@ public class Person{
 	}
 
 	public String toString(){
-		return firstname + " " + lastname + "\n\t" + age + " years old";
+		// return firstname + " " + lastname + "\n\t" + age + " years old";
+		return firstname + " " + lastname + "\n\t" + age + " years old" + address; // appended address
 	}
 
 	public String getFirstName(){
@@ -41,10 +42,15 @@ public class Person{
                 Person current = people.get(j);
                 Person minPerson = people.get(minIndex);
 
-                if (current.getFirstName().compareTo(minPerson.getFirstName()) < 0 ||
-                    (current.getFirstName().equals(minPerson.getFirstName()) && current.getLastName().compareTo(minPerson.getLastName()) < 0)) {
-                    minIndex = j;
-                }
+                // if (current.getFirstName().compareTo(minPerson.getFirstName()) < 0 ||
+                //     (current.getFirstName().equals(minPerson.getFirstName()) && current.getLastName().compareTo(minPerson.getLastName()) < 0))
+				if (current.getLastName().compareTo(minPerson.getLastName()) < 0 ||
+                    (current.getLastName().equals(minPerson.getLastName()) && current.getFirstName().compareTo(minPerson.getFirstName()) < 0))
+				// Originally compared by last names instead of first names
+				// Fixed by swapping getLastName() and getFirstName()
+					{
+                    	minIndex = j;
+                	}
             }
 
             if (minIndex != i) {
@@ -52,13 +58,14 @@ public class Person{
                 people.set(i, people.get(minIndex));
                 people.set(minIndex, temp);
             }
-        }
+        }	
 
         String result = "";
         for (Person p : people){
         	result = result + p.getFirstName() + " " + p.getLastName() + "\n";
         }
 
-        return result.substring(0, result.length());
+        // return result.substring(0, result.length());
+		return result.substring(0, result.length()-1); // remove trailing newline
     }		
 }
